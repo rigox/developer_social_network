@@ -56,7 +56,6 @@ router.post('/',[
 
 //return the json webtoken
 
-
 }catch(err){
   console.log(err.message)
   res.status(500).send("server error")

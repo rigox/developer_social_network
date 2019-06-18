@@ -1,4 +1,6 @@
 {
     "mongoURI":"mongodb+srv://rigo:0082522a@rigo-8gjwb.mongodb.net/test?retryWrites=true",
-    "jwtSecret":"dhhdjksahdfjklsadfadsf"
+    "jwtSecret":"dhhdjksahdfjklsadfadsf",
+    "githubclientid":"e5ab9078ce0c34a5c24d",
+    "githubsecret":"4aa3a81b90c279d246a11d9563778bf4295f719f"
 }

@@ -8,6 +8,10 @@ const PORT =  process.env.PORT || 5000
 const connectDB =  require('./config/db')
 const app =  express()
 
+app.get('/water',(req,res)=>{
+      res.send("water")
+});
+
 //init middleware
 app.use(express.urlencoded(),express.json())
 //set up routes 

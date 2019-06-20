@@ -1,8 +1,12 @@
 import React , {Fragment, useState} from 'react'
 import {Link } from 'react-router-dom';
-
 import axios from 'axios';
-const SignUp = (props) => {
+import {connect}  from "react-redux" ; 
+import  {setAlert} from '../../actions/alert';
+import PropTypes from 'prop-types'
+
+
+const SignUp = ({setAlert}) => {
     const [formData,setFormData]   = useState({
         name:'',
         email:'',
@@ -20,7 +24,7 @@ const SignUp = (props) => {
     const onSubmit = async e =>{
         e.preventDefault();
         if(password!==password2){
-             console.log("Passwords do not match")
+             setAlert("Passwords do not match",'danger')
         }else{
            console.log("Success")
         }
@@ -48,8 +52,7 @@ const SignUp = (props) => {
             name="password"
             minLength="6"
             value={password}
-            onChange={e=> onChange(e)}
-          />
+            onChange={e=> onChange(e)} />
         </div>
         <div className="form-group">
           <input
@@ -58,8 +61,7 @@ const SignUp = (props) => {
             name="password2"
             minLength="6"
             value={password2}
-            onChange={e=> onChange(e)}
-          />
+            onChange={e=> onChange(e)}/>
         </div>
         <input type="submit" className="btn btn-primary" value="Register" />
       </form>
@@ -70,4 +72,8 @@ const SignUp = (props) => {
     )
 }
 
-export default SignUp;
+SignUp.propTypes  = {
+     setAlert:PropTypes.func.isRequired,
+}
+
+export default connect(null,{setAlert})(SignUp);

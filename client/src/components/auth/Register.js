@@ -1,12 +1,13 @@
 import React , {Fragment, useState} from 'react'
-import {Link } from 'react-router-dom';
+import {Link ,Redirect } from 'react-router-dom';
 import axios from 'axios';
 import {connect}  from "react-redux" ; 
 import  {setAlert} from '../../actions/alert';
+import {Register} from '../../actions/auth';
 import PropTypes from 'prop-types'
 
 
-const SignUp = ({setAlert}) => {
+const SignUp = ({setAlert,Register,isAuthenticated}) => {
     const [formData,setFormData]   = useState({
         name:'',
         email:'',
@@ -27,9 +28,12 @@ const SignUp = ({setAlert}) => {
              setAlert("Passwords do not match",'danger')
         }else{
            console.log("Success")
+           Register({name,email,password})
         }
     }
-
+      if(isAuthenticated){
+         return <Redirect  to="/dashboard"/>
+      }
     return (
        <Fragment>
             <h1 className="large text-primary">Sign Up</h1>
@@ -63,7 +67,7 @@ const SignUp = ({setAlert}) => {
             value={password2}
             onChange={e=> onChange(e)}/>
         </div>
-        <input type="submit" className="btn btn-primary" value="Register" />
+        <input type="submit"  className="btn btn-primary" value="Register" />
       </form>
       <p className="my-1">
         Already have an account? <Link to="/login">Sign In</Link>
@@ -74,6 +78,11 @@ const SignUp = ({setAlert}) => {
 
 SignUp.propTypes  = {
      setAlert:PropTypes.func.isRequired,
+     Register:PropTypes.func.isRequired,
+     isAuthenticated:PropTypes.bool
 }
+const mapStateToProps = state =>({
+   isAuthenticated:state.auth.isAuthenticated
+})
 
-export default connect(null,{setAlert})(SignUp);
+export default connect(mapStateToProps,{setAlert,Register})(SignUp);
